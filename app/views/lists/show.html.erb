@@ -1,0 +1,26 @@
+<div class="container">
+
+<h1><%= @list.name %></h1>
+​
+​
+<div class ="my_list">
+
+    <% @movies.each do |movie| %>
+    <div class = "each_list" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= movie.poster_url%>)">
+       <% bookmark = Bookmark.find_by_movie_and_list(movie, @list) %>
+       <li style="list-style-type: none;">Title: <%= movie.title%></li>
+      <li>Overview: <%= movie.overview%></li>
+      <li>Poster url: <%= movie.poster_url%></li>
+      <li>Rating: <%= movie.rating%></li>
+      <li>Comment: <%= bookmark.comment%></li>
+
+
+​
+      <%= link_to 'Delete', bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure you want to delete #{movie.title} from your #{@list.name} list"} %>
+    </div>
+    <% end %>
+</div>
+​
+<%= link_to 'Back', lists_path %>
+<%= link_to 'Add a movie', new_list_bookmark_path(@list) %>
+</div>
